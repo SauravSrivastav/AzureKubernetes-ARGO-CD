@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: net-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: net-app
+  template:
+    metadata:
+      labels:
+        app: net-app
+    spec:
+      containers:
+      - name: net-app
+        image: hclcloudnativeacr.azurecr.io/net-app
+        ports:
+        - containerPort: 80
+      #imagePullSecrets:
+      #- name: acr-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: net-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: net-app
+  ports:
+  - port: 80
+    targetPort: 80

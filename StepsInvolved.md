@@ -7,3 +7,6 @@ Step 2: Deploy Argo-CD Manifest File:
 Step 3: Change ClusterIP to Load Balancer of "argocd-server" to access ArgoCD UI:
 > kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 
+Step 4: Login to ArgoCD UI page:
+> username:admin password:argocd-server-75877b6ffb-666w
+

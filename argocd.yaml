@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: net-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: net-app
@@ -11,14 +11,20 @@ spec:
     metadata:
       labels:
         app: net-app
+        version: v-BUILDNUM
     spec:
       containers:
       - name: net-app
-        image: hclcloudnativeacr.azurecr.io/net-app
+        image: sauravsrivastav/web:v1
         ports:
         - containerPort: 80
-      #imagePullSecrets:
-      #- name: acr-auth
+        resources:
+          requests: # minimum resources required
+            cpu: 250m
+            memory: 64Mi
+          limits: # maximum resources allocated
+            cpu: 500m
+            memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
